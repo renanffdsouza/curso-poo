@@ -1,0 +1,18 @@
+
+public class CriaConta {
+
+	public static void main(String[] args) {
+		Cliente cliente =  new Cliente();
+		Conta conta = new Conta(1337,24226);
+		conta.setTitular(cliente);
+		conta.getTitular().setNome("Renan");
+
+		
+		conta.depositar(200);
+		System.out.println(conta.getTitular().getNome());
+		System.out.println("Saldo na conta: " + conta.getSaldo());
+		
+
+	}
+
+}
