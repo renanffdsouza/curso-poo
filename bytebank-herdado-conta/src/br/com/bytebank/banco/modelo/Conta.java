@@ -1,4 +1,4 @@
-
+package br.com.bytebank.banco.modelo;
 public abstract class Conta {
 	protected double saldo;
 	private int agencia;
@@ -57,24 +57,20 @@ public abstract class Conta {
 		this.titular = titular;
 	}
 
-	public boolean saca(double valor) {
-		if (this.saldo >= valor) {
-			this.saldo -= valor;
-			return true;
-		} else {
-			System.out.println("Vlor insuficiente na conta");
-			return false;
-		}
+	public void saca(double valor) throws SaldoInsuficienteException {
+		
+		if (this.saldo < valor) {
+			throw new SaldoInsuficienteException("Saldo: " + this.saldo + ", Valor " + valor);
+			
+		} 
+		this.saldo -= valor;
 	}
 
-	public boolean tranfere(double valor, Conta destino) {
-		if (this.saca(valor)) {
+	public boolean tranfere(double valor, Conta destino)throws SaldoInsuficienteException {
+			this.saca(valor);
 			destino.depositar(valor);
 			return true;
-		} else {
-			System.out.println("Valor insuficiente para transferencia");
-			return false;
-		}
+		} 
 	}
 
-}
+
